@@ -1,15 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+
+using System.ComponentModel.DataAnnotations;
 
 namespace MetalProducts.Domain.Enum
 {
-    internal enum Priority
+    public enum Priority
     {
+        [Display(Name = "Легка")]
         Easy = 1,
+        [Display(Name = "Важлива")]
         Madium = 2,
+        [Display(Name = "Термінова")]
         Hard = 3
     }
 }

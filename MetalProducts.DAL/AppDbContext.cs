@@ -13,7 +13,7 @@ namespace MetalProducts.DAL
             Database.EnsureCreated();
         }
 
-        public DbSet<TaskEntity> Task { get; set; }
+        public DbSet<OrderEntity> Order { get; set; }
     }
 
 }
