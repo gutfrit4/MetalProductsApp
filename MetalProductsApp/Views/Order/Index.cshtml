@@ -1,0 +1,52 @@
+﻿@using MetalProducts.Domain.Enum
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h4 class="mb-3 text-muted">Дотати проекта</h4>
+<form id="createOrderForm">
+    <div class="mb-3">
+        <label class="form-label">Назва замовлення</label>
+        <input name="orderName" type="text" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Ім'я замовника/Компанії</label>
+        <input name="companyName" type="text" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Електрона пошта</label>
+        <input name="email" type="email" class="form-control" placeholder="name@example.com">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Номер телефону</label>
+        <input name="phoneNumber" type="text" class="form-control" placeholder="+38099999999">
+    </div>
+    <div>
+        <label class="form-label">Пріоритет</label>
+        <select name="priority" class="form-select mb-3" asp-items="Html.GetEnumSelectList<Priority>()"></select>
+    </div>
+    <div class="mb-3">
+            <label class="form-label">Вартість</label>
+            <input name="price" type="number" class="form-control" rows="3">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Опис замовлення</label>
+        <textarea name="description" type="text" class="form-control" rows="3"></textarea>
+    </div>
+    <button id="createOrder" class="btn btn-primary">Створити</button>
+    
+</form>
+
+@section Scripts
+{
+    <script >
+        $('#createOrder').on('click', function (e) {
+            e.preventDefault();
+            $.ajax({
+            type: 'POST',
+            url: '@Url.Action("Create", "Order")',
+            data: $('#createOrderForm').serialize()
+            })
+        })  
+    </script>
+}
