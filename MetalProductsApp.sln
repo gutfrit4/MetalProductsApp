@@ -9,6 +9,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{82D440
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetalProducts.Domain", "MetalProducts.Domain\MetalProducts.Domain.csproj", "{DF7F10B2-1DCD-4BCB-B9EA-C6CDA39335E3}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DAL", "DAL", "{78996316-E272-4963-A63F-E0B0DBFE2DC5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetalProducts.DAL", "MetalProducts.DAL\MetalProducts.DAL.csproj", "{F31AEB30-CB5B-425C-928D-C464A778AB38}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,12 +27,17 @@ Global
 		{DF7F10B2-1DCD-4BCB-B9EA-C6CDA39335E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF7F10B2-1DCD-4BCB-B9EA-C6CDA39335E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF7F10B2-1DCD-4BCB-B9EA-C6CDA39335E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F31AEB30-CB5B-425C-928D-C464A778AB38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F31AEB30-CB5B-425C-928D-C464A778AB38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F31AEB30-CB5B-425C-928D-C464A778AB38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F31AEB30-CB5B-425C-928D-C464A778AB38}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{DF7F10B2-1DCD-4BCB-B9EA-C6CDA39335E3} = {82D440A8-7232-4702-BC7A-094ACCD06F71}
+		{F31AEB30-CB5B-425C-928D-C464A778AB38} = {78996316-E272-4963-A63F-E0B0DBFE2DC5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4385962E-988C-4D18-AB37-C223777B7613}

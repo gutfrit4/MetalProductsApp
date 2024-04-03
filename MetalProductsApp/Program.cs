@@ -1,3 +1,6 @@
+using MetalProducts.DAL;
+using Microsoft.EntityFrameworkCore;
+
 namespace MetalProductsApp
 {
     public class Program
@@ -8,6 +11,10 @@ namespace MetalProductsApp
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            var connectionString = builder.Configuration.GetConnectionString("AppDbConnectionStrings");
+            builder.Services.AddDbContext<AppDbContext>(options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+     
 
             var app = builder.Build();
 
