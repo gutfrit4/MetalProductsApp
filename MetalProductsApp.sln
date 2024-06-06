@@ -13,9 +13,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DAL", "DAL", "{78996316-E27
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetalProducts.DAL", "MetalProducts.DAL\MetalProducts.DAL.csproj", "{F31AEB30-CB5B-425C-928D-C464A778AB38}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Servise", "Servise", "{F3B9E11E-0CC3-4F52-8AE0-B259D41052C3}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Serviсe", "Serviсe", "{F3B9E11E-0CC3-4F52-8AE0-B259D41052C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetalProducts.Servise", "MetalProducts.Servise\MetalProducts.Servise.csproj", "{4F75ACCD-3EE6-4E2D-A28F-089C7575BB86}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetalProducts.Service", "MetalProducts.Servicee\MetalProducts.Service.csproj", "{4F75ACCD-3EE6-4E2D-A28F-089C7575BB86}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

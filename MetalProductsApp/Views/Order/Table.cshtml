@@ -1,0 +1,175 @@
+﻿@using MetalProducts.Domain.Enum
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "_Layout";
+}
+<div class="row">
+    <div class="form-group col-md-6">
+        <lable class="col-form-label">Ім'я замовника/Компанії</lable>
+        <input name="companyName" type="text" class="form-control" />
+    </div>
+    <div class="form-group col-md-6">
+        <lable class="col-form-label">Пріорітет</lable>
+        <select id="prioritySearch" class="form-control mb-3" asp-items="Html.GetEnumSelectList<Priority>()"></select>
+    </div>
+</div>
+
+<table class="table table-dark table-hover" id="orderTable">
+    <thead>
+    <tr>
+        <th>Назва замовлення</th>
+        <th>Ім'я замовника/Компанії</th>
+        <th>Електрона пошта</th>
+        <th>Номер телефону</th>
+        <th>Пріоритет</th>
+        <th>Вартість</th>
+        <th>Опис замовлення</th>
+        <th>Готовність</th>
+        <th>Дія</th>
+    </tr>
+    </thead>   
+    <tbody></tbody>
+</table>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 order-md-2 mb-4">
+            <h4 class="d-flex justify-content-between align-items-center mb-3">
+                <span class="text-muted">Виконані замовлення</span>
+                <span class="badge badge-secondary badge-pill text-muted" id="countOfCompletedOrder"></span>
+            </h4>
+            <ul class="list-group mb-3" id="completedListOrder">
+                <form asp-controller="Order" asp-action="CalculateCompletedOrder" method="post" enctype="multipart/form-data">
+                    <div class="card col-md-12">
+                        <button type="submit" class="btn btn-secondary">Завантажити звіт</button>
+                    </div>
+                </form>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts
+{
+    <script type="text/javascript" src="https://cdn.datatables.net/2.0.3/js/dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script >
+    
+        const swalWithBootstrapButtons = Swal.mixin({
+          customClass: {
+            confirmButton: "btn btn-success",
+          },
+          buttonsStyling: false
+        });
+            
+        let dataTable = $('#orderTable').DataTable({
+            info: true,
+            serverSide: true,
+            searching: false,
+            paging: false,
+            sorting: false,
+            ajax:{
+                url: "@Url.Action("OrderHandler")",
+                method: 'POST',
+                data: model
+            },
+            columns: [
+                {data: 'orderName'},
+                {data: 'companyName'},
+                {data: 'email'},
+                {data: 'phoneNumber'},
+                {data: 'priority'},
+                {data: 'price'},
+                {data: 'description'},
+                {data: 'isDone'},
+                {
+                    data: null,
+                    sortable: false,
+                    render: function (data, type) {
+                        return '<button class="btn btn-success btn-sm center-block">Виконати</button>'
+                    } 
+                }
+            ],
+            createdRow: function (nRow, data){
+                
+                var handlerComplete = function (){
+                    swalWithBootstrapButtons.fire({
+                      title: "Ви впевнені?",
+                      icon: "warning",
+                      confirmButtonText: "Так!",
+                      reverseButtons: true
+                    }).then((result) => {
+                      if (result.isConfirmed) {
+                        $.ajax({
+                            type: 'POST',
+                            url: '@Url.Action("EndOrder")',
+                            data: { id: data.id },
+                            success: function (response){
+                                Swal.fire({
+                                    title: 'Інформація',
+                                    text: response.description,
+                                    icon: 'success',
+                                    confirmButtonText: 'Окей'
+                                })
+                                dataTable.draw();
+                            },
+                            error: function (response){
+                                Swal.fire({
+                                    title: 'Інформація',
+                                    text: response.responseJSON.description,
+                                    icon: 'error',
+                                    confirmButtonText: 'Окей'
+                                })
+                            }
+                        })
+                      }
+                    });
+                }
+                
+                for(var i = 0; i<dataTable.columns().header().length-1; i++){
+                    $('td', nRow).eq(i).css('cursor', 'pointer');
+
+                    $('td', nRow).eq(i).on('click', null);
+                }    
+                $('td button', nRow).on('click', handlerComplete);
+            }
+        });
+        
+        function model(){
+            return{
+                companyName: $('input[name="companyName"]').val(),
+                Priority: $('#prioritySearch option:selected').val()
+            }
+        }
+        $('input[name="companyName"]').on('change', function (){
+            dataTable.draw();
+        })
+        $('#prioritySearch').on('change', function (){
+            dataTable.draw();
+        })
+         
+         $(document).ready(function (){
+             $.ajax({
+                type: 'GET',
+                url: '@Url.Action("GetCompletedOrder", "Order")',
+                success: function (data){
+                    const ulElement = $('#completedListOrder');
+                    for (var i = 0; i < data.data.length; i++){
+                        const order = data.data[i];
+                        ulElement.append(`
+                            <li class="list-group-item d-flex justify-content-between lh-condensed" style="background-color: #affabf">
+                                <div>
+                                    <h6 class="my-0">Назва: ${order.orderName}</h6>
+                                    <small class="text-muted">Опис: ${order.description}</small>
+                                </div>
+                            </li>
+                        `)
+                    }
+                    $('#countOfCompletedOrder').text(data.data.length);
+                }
+             })
+         })
+         
+    </script>
+}

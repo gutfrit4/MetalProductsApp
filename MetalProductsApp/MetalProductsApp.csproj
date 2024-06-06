@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MetalProducts.DAL\MetalProducts.DAL.csproj" />
+    <ProjectReference Include="..\MetalProducts.Servicee\MetalProducts.Service.csproj" />
   </ItemGroup>
 
 </Project>
