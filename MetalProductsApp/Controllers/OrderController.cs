@@ -39,6 +39,16 @@ namespace MetalProductsApp.Controllers
         {
             return View();
         }
+        
+        public IActionResult About()
+        {
+            return View();
+        }
+        
+        public IActionResult Privacy()
+        {
+            return View();
+        }
 
         public async Task<IActionResult> GetCompletedOrder()
         {
